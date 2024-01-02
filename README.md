@@ -1,16 +1,43 @@
 # ttn_flix
 
-A new Flutter project with OTT application.
+A new Flutter project with an OTT application where it shows the available movies and performs other functions.
 
 ## Getting Started
 
 This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+### Prerequisites
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+List any software, tools, or dependencies that need to be installed before your Flutter project can be run.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- [Flutter](https://flutter.dev/docs/get-started/install)
+- [Dart](https://dart.dev/get-dart)
+### Installation
+
+Provide step-by-step instructions on how to install and set up your Flutter project.
+
+# Clone the repository
+git clone https://github.com/AM5324/ttnflix.git
+
+# Navigate to the project folder
+cd your-flutter-project
+
+# Get dependencies
+flutter pub get
+flutter pub run build_runner build
+
+lib/
+├── data/
+│   └── models
+    |── network
+        └── api
+        └── helper
+    └── repositories
+├── logic/
+│   └── home.dart
+└── presentation
+├── main.dart
+└── ...
+
+
+
