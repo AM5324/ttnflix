@@ -1,0 +1,18 @@
+// ignore_for_file: constant_identifier_names
+// DO NOT USE 'dartfmt' on this file for formatting
+
+import 'package:flutter/material.dart';
+
+/// A utility class for getting paths for API endpoints.
+/// This class has no constructor and all methods are `static`.
+@immutable
+class ApiEndpoint {
+  const ApiEndpoint._();
+
+  static const baseUrl = 'https://api.themoviedb.org/3/trending/movie/week?api_key=060e7c76aff06a20ca4a875981216f3f&page=1';
+  static const imageBaseUrl =
+      'https://image.tmdb.org/t/p/w185';
+  static const Duration receiveTimeout = Duration(milliseconds: 5000);
+
+  static const Duration connectionTimeout = Duration(milliseconds: 3000);
+}
