@@ -21,11 +21,6 @@ git clone https://github.com/AM5324/ttnflix.git
 
 # Navigate to the project folder
 cd your-flutter-project
-
-# Get dependencies
-flutter pub get
-flutter pub run build_runner build
-
 lib/
 ├── data/
 │   └── models
@@ -38,6 +33,12 @@ lib/
 └── presentation
 ├── main.dart
 └── ...
+
+
+# Get dependencies
+flutter pub get
+flutter pub run build_runner build
+
 
 
 
