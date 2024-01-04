@@ -1,0 +1,1 @@
+enum TTNFlixStatus{initial, loading, success, error}
