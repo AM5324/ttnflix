@@ -1,21 +1,13 @@
 part of 'home_cubit.dart';
 
 
+abstract class HomeState extends TTNFlixDefaultEquatable {}
 
-class HomeState extends Equatable {
-  final TTNFlixStatus status;
+class HomeLoading extends HomeState {}
 
-  const HomeState({this.status = TTNFlixStatus.initial});
+class HomeLoaded extends HomeState {}
 
-  HomeState copyWith({
-    TTNFlixStatus? status
-}){
-    return HomeState(
-      status: status ?? this.status
-    );
-  }
-  @override
-  // TODO: implement props
-  List<Object?> get props => [status];
-
+class HomeError extends HomeState {
+  final String errorMessage;
+  HomeError(this.errorMessage);
 }
