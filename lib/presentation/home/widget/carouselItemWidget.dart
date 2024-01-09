@@ -14,7 +14,7 @@ class CarouselItemWidget extends StatelessWidget {
     return Column(
       children: [
         Container(
-          height: 225,
+          height: TTNFlixSpacing.spacing225,
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
             image: DecorationImage(image: CachedNetworkImageProvider(item), fit: BoxFit.cover),

@@ -1,6 +1,4 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:ttn_flix/data/network/api/api_endpoint.dart';
 import 'package:ttn_flix/presentation/home/widget/carouselItemWidget.dart';
 import 'package:ttn_flix/presentation/themes/ttn_flix_spacing.dart';
 
@@ -17,27 +15,20 @@ class HeroBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CarouselSlider(
-      options: CarouselOptions(
-        height: TTNFlixSpacing.spacing315,
-        enlargeCenterPage: true,
-        autoPlay: true,
-        aspectRatio: 16 / 9,
-        autoPlayCurve: Curves.fastOutSlowIn,
-        enableInfiniteScroll: true,
-        autoPlayAnimationDuration: ApiEndpoint.carouselTimeout,
-        viewportFraction: TTNFlixSpacing.spacing1,
+    return SizedBox(
+      height: TTNFlixSpacing.spacing315,
+      child: Stack(
+        children: [
+          PageView.builder(itemCount: imgList.length,
+              itemBuilder: (context, index) {
+                return CarouselItemWidget(item: imgList[index]);
+              })
+        ],
       ),
-      items: imgList.map((item) {
-        return Builder(
-          builder: (BuildContext context) {
-            return CarouselItemWidget(item: item);
-          },
-        );
-      }).toList(),
     );
   }
 }
 
 
 
+  
