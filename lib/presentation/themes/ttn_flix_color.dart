@@ -14,7 +14,6 @@ class TTNFlixColor {
   static const Color _blue = Color(0xFF0071EB);
 
 
-
   static final Map<Brightness, Color> primaryColor = _buildColor(
       lightColor: _darkGreyColor,
       darkColor: _darkGreyColor);

@@ -12,7 +12,5 @@ class ApiEndpoint {
   static const baseUrl = 'https://api.themoviedb.org/3/trending/movie/week?api_key=060e7c76aff06a20ca4a875981216f3f&page=1';
   static const imageBaseUrl =
       'https://image.tmdb.org/t/p/w185';
-  static const Duration receiveTimeout = Duration(milliseconds: 5000);
-
-  static const Duration connectionTimeout = Duration(milliseconds: 3000);
+  static const Duration carouselTimeout = Duration(milliseconds: 1000);
 }

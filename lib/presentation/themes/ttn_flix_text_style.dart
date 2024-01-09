@@ -11,6 +11,7 @@ class TTNFlixTextStyle{
       headlineSmall: _getHeading5(),
       titleLarge: _getHeading6(),
       bodySmall: _getCaptionDefault(),
+      titleSmall: _getSubtitle2(),
     );
 
   static TextStyle _getHeading3() => GoogleFonts.inter(
