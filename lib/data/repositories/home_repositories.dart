@@ -1,13 +1,13 @@
-import 'dart:ffi';
 
+import '../di/ttn_flix_service_locator.dart';
 import '../network/dio_api_client.dart';
 
 class HomeRepository {
-  final DioApiClient _apiService;
+  late DioApiClient _apiService;
 
-  HomeRepository({
-    required DioApiClient apiService,
-  }) : _apiService = apiService;
+  HomeRepository(){
+    _apiService = TTNFlixSL.get<DioApiClient>();
+  }
 
 
 

@@ -44,6 +44,9 @@ class DioService {
   })  : _dio = dioClient,
         _cancelToken = CancelToken() {
     if (interceptors != null) _dio.interceptors.addAll(interceptors);
+    // Add PrettyDioLogger to intercept Dio requests and responses
+    _dio.interceptors.add(PrettyDioLogger(requestBody: true, responseBody: true));
+
     if (httpClientAdapter != null) _dio.httpClientAdapter = httpClientAdapter;
   }
 
@@ -56,6 +59,26 @@ class DioService {
     } else {
       cancelToken.cancel();
     }
+  }
+
+  ///Merged common functionality in the get, post, patch, and delete methods into a private _sendRequest method to reduce code duplication.
+
+  Future<ResponseModel<R>> _sendRequest<R>(
+      String method,
+      String endpoint, {
+        JSON? data,
+        Map<String, dynamic>? queryParams,
+        Options? options,
+        CancelToken? cancelToken,
+      }) async {
+    final response = await _dio.request<JSON>(
+      endpoint,
+      data: data,
+      queryParameters: queryParams,
+      options: _mergeDioAndCacheOptions(dioOptions: options),  // Corrected line
+      cancelToken: cancelToken ?? _cancelToken,
+    );
+    return ResponseModel<R>.fromJson(response.data!);
   }
 
   /// This method sends a `GET` request to the [endpoint], **decodes**
@@ -79,18 +102,11 @@ class DioService {
     Options? options,
     CacheOptions? cacheOptions,
     CancelToken? cancelToken,
-  }) async {
-    final response = await _dio.get<JSON>(
-      endpoint,
-      queryParameters: queryParams,
-      options: _mergeDioAndCacheOptions(
-        dioOptions: options,
-        cacheOptions: cacheOptions,
-      ),
-      cancelToken: cancelToken ?? _cancelToken,
-    );
-    return ResponseModel<R>.fromJson(response.data!);
-  }
+  }) async =>
+      _sendRequest('GET', endpoint,
+          queryParams: queryParams,
+          options: options,
+          cancelToken: cancelToken);
 
   /// This method sends a `POST` request to the [endpoint], **decodes**
   /// the response and returns a parsed [ResponseModel] with a body of type [R].
@@ -110,16 +126,12 @@ class DioService {
     Map<String, dynamic>? queryParams,
     Options? options,
     CancelToken? cancelToken,
-  }) async {
-    final response = await _dio.post<JSON>(
-      endpoint,
-      data: data,
-      queryParameters: queryParams,
-      options: options,
-      cancelToken: cancelToken ?? _cancelToken,
-    );
-    return ResponseModel<R>.fromJson(response.data!);
-  }
+  }) async =>
+      _sendRequest('POST', endpoint,
+          data: data,
+          queryParams: queryParams,
+          options: options,
+          cancelToken: cancelToken);
 
   /// This method sends a `PATCH` request to the [endpoint], **decodes**
   /// the response and returns a parsed [ResponseModel] with a body of type [R].
@@ -138,15 +150,9 @@ class DioService {
     JSON? data,
     Options? options,
     CancelToken? cancelToken,
-  }) async {
-    final response = await _dio.patch<JSON>(
-      endpoint,
-      data: data,
-      options: options,
-      cancelToken: cancelToken ?? _cancelToken,
-    );
-    return ResponseModel<R>.fromJson(response.data!);
-  }
+  }) async =>
+      _sendRequest('PATCH', endpoint,
+          data: data, options: options, cancelToken: cancelToken);
 
   /// This method sends a `DELETE` request to the [endpoint], **decodes**
   /// the response and returns a parsed [ResponseModel] with a body of type [R].
@@ -165,37 +171,32 @@ class DioService {
     JSON? data,
     Options? options,
     CancelToken? cancelToken,
-  }) async {
-    final response = await _dio.delete<JSON>(
-      endpoint,
-      data: data,
-      options: options,
-      cancelToken: cancelToken ?? _cancelToken,
-    );
-    return ResponseModel<R>.fromJson(response.data!);
-  }
+  }) async =>
+      _sendRequest('DELETE', endpoint,
+          data: data, options: options, cancelToken: cancelToken);
 
   /// A utility method used to merge together [Options]
   /// and [CacheOptions].
   ///
   /// Returns an [Options] object with [CacheOptions] stored
   /// in the [options.extra] key.
+  /// Used a single method _mergeDioAndCacheOptions instead of repeating the logic for merging Dio and Cache options.
+  /// Replaced options: options, with options: _mergeDioAndCacheOptions(options), to handle the merging of Dio and Cache options in a more centralized way.
+  /// This updated version of _mergeDioAndCacheOptions takes only the dioOptions parameter, and it correctly handles the merging of Dio and Cache options. You can use this version in your DioService class.
   Options? _mergeDioAndCacheOptions({
-    Options? dioOptions,
-    CacheOptions? cacheOptions,
+    Options? dioOptions
   }) {
-    if (dioOptions == null && cacheOptions == null) {
+    if (dioOptions == null && globalCacheOptions == null) {
       return null;
-    } else if (dioOptions == null && cacheOptions != null) {
-      return cacheOptions.toOptions();
-    } else if (dioOptions != null && cacheOptions == null) {
+    } else if (dioOptions == null && globalCacheOptions != null) {
+      return globalCacheOptions!.toOptions();
+    } else if (dioOptions != null && globalCacheOptions == null) {
       return dioOptions;
     }
 
-    final _cacheOptionsMap = cacheOptions!.toExtra();
-    final options = dioOptions!.copyWith(
-      extra: <String, dynamic>{...dioOptions.extra!, ..._cacheOptionsMap},
+    final cacheOptionsMap = globalCacheOptions!.toExtra();
+    return dioOptions?.copyWith(
+      extra: <String, dynamic>{...dioOptions.extra!, ...cacheOptionsMap},
     );
-    return options;
   }
 }
