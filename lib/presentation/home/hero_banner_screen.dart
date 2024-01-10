@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:ttn_flix/presentation/home/widget/carouselItemWidget.dart';
+import 'package:ttn_flix/presentation/home/widget/movie_item_widget.dart';
 import 'package:ttn_flix/presentation/themes/ttn_flix_spacing.dart';
+
+import '../../utils/ttn_flix_constant.dart';
 
 class HeroBanner extends StatelessWidget {
    HeroBanner({super.key});
@@ -21,7 +24,10 @@ class HeroBanner extends StatelessWidget {
         children: [
           PageView.builder(itemCount: imgList.length,
               itemBuilder: (context, index) {
-                return CarouselItemWidget(item: imgList[index]);
+                return MovieItem(
+                  imageUrl: imgList[index],
+                  title: TTNFlixConstants.title,
+                );;
               })
         ],
       ),

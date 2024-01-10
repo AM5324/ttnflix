@@ -13,4 +13,6 @@ class ApiEndpoint {
   static const imageBaseUrl =
       'https://image.tmdb.org/t/p/w185';
   static const Duration carouselTimeout = Duration(milliseconds: 1000);
+  static const String apiKey = '060e7c76aff06a20ca4a875981216f3f';
+  static const String getMovies = 'trending/movie/week';
 }

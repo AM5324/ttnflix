@@ -8,6 +8,7 @@ class TTNFlixSpacing{
   static const int intSpacing10 = 10;
   static const double spacing10 = 10;
   static const double spacing16 = 16;
+  static const double spacing20 = 20;
   static const double spacing30 = 30;
   /// spacing 100
   /// spacing 200

@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ttn_flix/presentation/home/hero_banner_screen.dart';
 import 'package:ttn_flix/presentation/home/widget/movie_gridview_widget.dart';
+import 'package:ttn_flix/presentation/themes/ttn_flix_spacing.dart';
 import 'package:ttn_flix/utils/ttn_flix_constant.dart';
 
 import '../themes/ttn_flix_text_style.dart';
@@ -23,6 +24,7 @@ class HomeScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(children: [
           HeroBanner(),
+          SizedBox(height: TTNFlixSpacing.spacing10,),
           const MovieGidViewWidget()
         ],)
       ),
