@@ -1,7 +1,11 @@
 class TTNFlixSpacing{
 
   static const double spacing1 = 1;
+  static const int intSpacing2 = 2;
+  static const double spacing2 = 2;
   static const double spacing5 = 5;
+  static const double spacing8 = 8;
+  static const int intSpacing10 = 10;
   static const double spacing10 = 10;
   static const double spacing16 = 16;
   static const double spacing30 = 30;
