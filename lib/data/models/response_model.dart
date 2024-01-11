@@ -1,39 +1,22 @@
-
-
-import '../network/helper/typedefs.dart';
-
 class ResponseModel<T> {
-  final _ResponseHeadersModel headers;
-  final T body;
+  final String? message;
+  final int? code;
+  final T? body;
 
   const ResponseModel({
-    required this.headers,
     required this.body,
+    this.message,
+    required this.code,
   });
 
-  factory ResponseModel.fromJson(JSON json) {
+  factory ResponseModel.fromJson(JSON? json) {
     return ResponseModel(
-      headers: _ResponseHeadersModel.fromJson(
-        json['headers'] as JSON,
-      ),
-      body: json['body'] as T,
+      body: json?['data'] as T,
+      message: json?['status_message'] as String?,
+      code: json?['status_code'] as int,
     );
   }
 }
 
-class _ResponseHeadersModel {
-  final String message;
-  final String? code;
-
-  const _ResponseHeadersModel({
-    required this.message,
-    this.code,
-  });
-
-  factory _ResponseHeadersModel.fromJson(JSON json) {
-    return _ResponseHeadersModel(
-      message: json['message'] as String,
-      code: json['code'] as String?,
-    );
-  }
-}
+typedef JSON = Map<String, dynamic>;
+typedef QueryParams = Map<String, String>;

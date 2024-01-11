@@ -9,10 +9,11 @@ import 'package:flutter/material.dart';
 class ApiEndpoint {
   const ApiEndpoint._();
 
-  static const baseUrl = 'https://api.themoviedb.org/3/trending/movie/week?api_key=060e7c76aff06a20ca4a875981216f3f&page=1';
+  static const baseUrl = 'https://api.themoviedb.org/3/trending/movie/week?';
   static const imageBaseUrl =
       'https://image.tmdb.org/t/p/w185';
-  static const Duration carouselTimeout = Duration(milliseconds: 1000);
+  static const Duration carouselTimeout = Duration(milliseconds: 3000);
+  static const Duration carouselAnimateTimeout = Duration(milliseconds: 500);
   static const String apiKey = '060e7c76aff06a20ca4a875981216f3f';
   static const String getMovies = 'trending/movie/week';
 }

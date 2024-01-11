@@ -5,7 +5,6 @@ import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 import '../models/response_model.dart';
-import 'helper/typedefs.dart';
 
 // // Exceptions
 // import './custom_exception.dart';
@@ -63,26 +62,33 @@ class DioService {
 
   ///Merged common functionality in the get, post, patch, and delete methods into a private _sendRequest method to reduce code duplication.
 
-  Future<ResponseModel<R>> _sendRequest<R>(
+  Future<ResponseModel<T>> _sendRequest<T>(
       String method,
       String endpoint, {
-        JSON? data,
         Map<String, dynamic>? queryParams,
         Options? options,
         CancelToken? cancelToken,
       }) async {
-    final response = await _dio.request<JSON>(
+    Response response = await _dio.request<JSON>(
       endpoint,
-      data: data,
       queryParameters: queryParams,
       options: _mergeDioAndCacheOptions(dioOptions: options),  // Corrected line
       cancelToken: cancelToken ?? _cancelToken,
     );
-    return ResponseModel<R>.fromJson(response.data!);
+    if (response.statusCode == 200) {
+      return ResponseModel<T>(
+          body: response.data,
+          code: response.data["status_code"],
+          message: response.data["status_message"]);
+    }
+    return ResponseModel<T>(
+        body: response.data,
+        code: response.statusCode ?? 500,
+        message: response.statusMessage);
   }
 
   /// This method sends a `GET` request to the [endpoint], **decodes**
-  /// the response and returns a parsed [ResponseModel] with a body of type [R].
+  /// the response and returns a parsed [ResponseModel] with a body of type [T].
   ///
   /// Any errors encountered during the request are caught and a custom
   /// [CustomException] is thrown.
@@ -96,7 +102,7 @@ class DioService {
   /// the [globalCacheOptions].
   ///
   /// [options] are special instructions that can be merged with the request.
-  Future<ResponseModel<R>> get<R>({
+  Future<ResponseModel<T>> get<T>({
     required String endpoint,
     JSON? queryParams,
     Options? options,
@@ -109,7 +115,7 @@ class DioService {
           cancelToken: cancelToken);
 
   /// This method sends a `POST` request to the [endpoint], **decodes**
-  /// the response and returns a parsed [ResponseModel] with a body of type [R].
+  /// the response and returns a parsed [ResponseModel] with a body of type [T].
   ///
   /// Any errors encountered during the request are caught and a custom
   /// [CustomException] is thrown.
@@ -120,7 +126,7 @@ class DioService {
   /// the **default** [cancelToken] inside [DioService] is used.
   ///
   /// [options] are special instructions that can be merged with the request.
-  Future<ResponseModel<R>> post<R>({
+  Future<ResponseModel<T>> post<T>({
     required String endpoint,
     JSON? data,
     Map<String, dynamic>? queryParams,
@@ -128,52 +134,9 @@ class DioService {
     CancelToken? cancelToken,
   }) async =>
       _sendRequest('POST', endpoint,
-          data: data,
           queryParams: queryParams,
           options: options,
           cancelToken: cancelToken);
-
-  /// This method sends a `PATCH` request to the [endpoint], **decodes**
-  /// the response and returns a parsed [ResponseModel] with a body of type [R].
-  ///
-  /// Any errors encountered during the request are caught and a custom
-  /// [CustomException] is thrown.
-  ///
-  /// The [data] contains body for the request.
-  ///
-  /// [cancelToken] is used to cancel the request pre-maturely. If null,
-  /// the **default** [cancelToken] inside [DioService] is used.
-  ///
-  /// [options] are special instructions that can be merged with the request.
-  Future<ResponseModel<R>> patch<R>({
-    required String endpoint,
-    JSON? data,
-    Options? options,
-    CancelToken? cancelToken,
-  }) async =>
-      _sendRequest('PATCH', endpoint,
-          data: data, options: options, cancelToken: cancelToken);
-
-  /// This method sends a `DELETE` request to the [endpoint], **decodes**
-  /// the response and returns a parsed [ResponseModel] with a body of type [R].
-  ///
-  /// Any errors encountered during the request are caught and a custom
-  /// [CustomException] is thrown.
-  ///
-  /// The [data] contains body for the request.
-  ///
-  /// [cancelToken] is used to cancel the request pre-maturely. If null,
-  /// the **default** [cancelToken] inside [DioService] is used.
-  ///
-  /// [options] are special instructions that can be merged with the request.
-  Future<ResponseModel<R>> delete<R>({
-    required String endpoint,
-    JSON? data,
-    Options? options,
-    CancelToken? cancelToken,
-  }) async =>
-      _sendRequest('DELETE', endpoint,
-          data: data, options: options, cancelToken: cancelToken);
 
   /// A utility method used to merge together [Options]
   /// and [CacheOptions].

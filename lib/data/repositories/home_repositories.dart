@@ -14,7 +14,7 @@ class HomeRepository {
 
   Future<MovieResponse> getMoviesData(int pageNo) async {
     final response = await _apiService.getDataFromApi(
-        endpoint: ApiEndpoint.getMovies,
+        endpoint: ApiEndpoint.baseUrl,
         converter: MovieResponse.fromJson,
         queryParams: {"api_key": ApiEndpoint.apiKey, "page": pageNo});
     return response;
