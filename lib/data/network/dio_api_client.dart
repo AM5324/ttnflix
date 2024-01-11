@@ -1,5 +1,6 @@
 // Services
 import 'package:dio/dio.dart';
+import 'package:ttn_flix/data/di/ttn_flix_service_locator.dart';
 
 import 'dio_service.dart';
 import '../network/helper/typedefs.dart';
@@ -9,12 +10,9 @@ import 'dio_custom_exception.dart';
 /// A service class implementing methods for basic API requests.
 class DioApiClient implements ApiInterface {
   /// An instance of [DioService] for network requests
-  ///
-  late final DioService _dioService;
-
   /// A public constructor that is used to initialize the API service
   /// and setup the underlying [_dioService].
-  DioApiClient(DioService dioService) : _dioService = dioService;
+   final DioService _dioService = TTNFlixSL.get<DioService>();
   /// An implementation of the base method for cancelling
   /// requests pre-maturely using the [cancelToken].
   ///

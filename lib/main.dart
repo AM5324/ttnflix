@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:ttn_flix/navigation/ttn_flix_navigation.dart';
 import 'package:ttn_flix/presentation/themes/ttn_flix_theme.dart';
 
-void main() {
+import 'data/di/app_module.dart';
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await AppModule().initialise();
   runApp(MyApp());
 }
 
