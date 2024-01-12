@@ -1,9 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ttn_flix/presentation/themes/ttn_flix_spacing.dart';
 
-class MovieGidViewWidget extends StatelessWidget {
-  const MovieGidViewWidget({super.key});
+import '../../../data/models/movie.dart';
+import 'movie_item_widget.dart';
+
+class MovieGridViewWidget extends StatelessWidget {
+  const MovieGridViewWidget({Key? key, required this.gridList}) : super(key: key);
+
+  final List<Results> gridList;
 
   @override
   Widget build(BuildContext context) {
@@ -11,20 +15,16 @@ class MovieGidViewWidget extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: TTNFlixSpacing.intSpacing2, // Number of columns
-        crossAxisSpacing: TTNFlixSpacing.spacing8, // Spacing between columns
-        mainAxisSpacing: TTNFlixSpacing.spacing8, // Spacing between rows
+        crossAxisCount: TTNFlixSpacing.intSpacing2,
+        crossAxisSpacing: TTNFlixSpacing.spacing20,
+        mainAxisSpacing: TTNFlixSpacing.spacing20,
+        childAspectRatio: TTNFlixSpacing.spacing1_5,
       ),
-      itemCount: TTNFlixSpacing.intSpacing10, // Number of items in the grid
+      itemCount: gridList.length,
       itemBuilder: (BuildContext context, int index) {
-        return Container(
-          color: Colors.blueAccent,
-          child: Center(
-            child: Text(
-              'Item $index',
-              style: TextStyle(color: Colors.white),
-            ),
-          ),
+        return MovieItem(
+          items: gridList[index],
+          isGridView: true,
         );
       },
     );
