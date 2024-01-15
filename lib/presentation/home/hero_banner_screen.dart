@@ -12,7 +12,7 @@ class HeroBanner extends StatelessWidget {
 
   final List<Results> carouselList;
   final int carouselCurrentPage;
-
+  final int maxCount = 10;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -25,7 +25,7 @@ class HeroBanner extends StatelessWidget {
                 BlocProvider.of<HomeCubit>(context)
                     .updateDotIndicator(page);
               },
-              itemCount: carouselList.length,
+              itemCount: maxCount,
               itemBuilder: (context, index) {
                 return MovieItem(
                   items: carouselList[index],
@@ -34,7 +34,7 @@ class HeroBanner extends StatelessWidget {
           Align(
             alignment: Alignment.bottomCenter,
             child: DotsIndicator(
-              itemCount: carouselList.length,
+              itemCount: maxCount,
               currentPage: carouselCurrentPage,
             ),
           ),

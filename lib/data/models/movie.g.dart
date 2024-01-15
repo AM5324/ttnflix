@@ -23,4 +23,6 @@ Results _$ResultsFromJson(Map<String, dynamic> json) => Results(
       json['adult'] as bool?,
       json['backdrop_path'] as String?,
       json['original_language'] as String?,
+      json['release_date'] as String?,
+      json['vote_count'] as int?,
     );
