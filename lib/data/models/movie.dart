@@ -28,8 +28,12 @@ class Results{
   final String? originalLanguage;
   @JsonKey(name: "backdrop_path")
   final String? backdropPath;
+  @JsonKey(name: "release_date")
+  final String? releaseDate;
+  @JsonKey(name: "vote_count")
+  final int? voteCount;
 
-  const Results(this.title, this.overview, this.posterPath, this.adult, this.backdropPath, this.originalLanguage);
+  const Results(this.title, this.overview, this.posterPath, this.adult, this.backdropPath, this.originalLanguage, this.releaseDate, this.voteCount);
 
   factory Results.fromJson(Map<String, dynamic> map) =>
       _$ResultsFromJson(map);

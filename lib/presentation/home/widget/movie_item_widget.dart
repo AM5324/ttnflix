@@ -1,7 +1,9 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:ttn_flix/data/models/movie.dart';
 import 'package:ttn_flix/data/network/api/api_endpoint.dart';
+import 'package:ttn_flix/navigation/ttn_flix_navigation.gr.dart';
 import '../../themes/ttn_flix_spacing.dart';
 import '../../themes/ttn_flix_text_style.dart';
 
@@ -20,24 +22,29 @@ class MovieItem extends StatelessWidget {
     return Column(
       children: [
         Expanded(
-          child: Container(
-            width: MediaQuery.of(context).size.width,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: CachedNetworkImageProvider(
-                    "${ApiEndpoint.imageBaseUrl}${items.posterPath ?? ''}"),
-                fit: BoxFit.cover,
+          child: InkWell(
+            onTap: (){
+              context.router.push(DetailScreenRoute(movie: items));
+            },
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: CachedNetworkImageProvider(
+                      "${ApiEndpoint.imageBaseUrl}${items.posterPath ?? ''}"),
+                  fit: BoxFit.cover,
+                ),
               ),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(TTNFlixSpacing.spacing10),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  _buildText(items.getContentRating(), Colors.white),
-                  _buildText(items.originalLanguage?.toUpperCase() ?? "", Colors.white),
-                ],
+              child: Padding(
+                padding: const EdgeInsets.all(TTNFlixSpacing.spacing10),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    _buildText(items.getContentRating(), Colors.white),
+                    _buildText(items.originalLanguage?.toUpperCase() ?? "", Colors.white),
+                  ],
+                ),
               ),
             ),
           ),
