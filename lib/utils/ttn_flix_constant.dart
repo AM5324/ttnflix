@@ -17,6 +17,7 @@ class TTNFlixConstants{
   static const String name = "Name";
   static const String dob = "D.O.B";
   static const String gender = "Gender";
+  static const String favorite = "Favorite";
 
 
 }
