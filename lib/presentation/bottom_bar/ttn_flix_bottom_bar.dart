@@ -1,9 +1,12 @@
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ttn_flix/logic/favourite/favourite_cubit.dart';
+import 'package:ttn_flix/presentation/favouraite/favouraite_screen.dart';
 
 import '../../data/repositories/home_repositories.dart';
 import '../../logic/home/home_cubit.dart';
+import '../account/account_screen.dart';
 import '../home/home_screen.dart';
 
 @RoutePage()
@@ -20,9 +23,9 @@ class _TTNFlixBottomBarState extends State<TTNFlixBottomBar> {
     BlocProvider(
         create: (context) => HomeCubit(HomeRepository()),
         child: HomeScreen()),
-    // BlocProvider(
-    //     create: (context) => FavouriteCubit(), child: FavoriteScreen()),
-    // const AccountScreen()
+    BlocProvider(
+        create: (context) => FavouriteCubit(), child: FavouraiteScreen()),
+     AccountScreen()
   ];
 
   void _onItemTapped(int index) {
