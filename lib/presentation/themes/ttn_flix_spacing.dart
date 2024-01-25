@@ -15,7 +15,10 @@ class TTNFlixSpacing{
   static const double spacing10 = 10;
   static const double spacing16 = 16;
   static const double spacing20 = 20;
+  static const double spacing24 = 24;
   static const double spacing30 = 30;
+  static const double spacing50 = 50;
+
   /// spacing 100
   static const double spacing100 = 100;
   /// spacing 200

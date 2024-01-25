@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:ttn_flix/data/di/ttn_flix_service_locator_imple.dart';
+import 'package:ttn_flix/data/shared_prefernce/shared_prefernce_manager.dart';
 
 
 abstract class TTNFlixServiceLocator {
@@ -18,6 +19,14 @@ abstract class TTNFlixServiceLocator {
   void registerLazySingletonAsync<T extends Object>(
       FactoryFuncAsync<T> factoryFunc, {
         String? instanceName,
+        DisposingFunc<T>? dispose,
+      });
+
+  void registerSingletonAsync<T extends Object>(
+      FactoryFuncAsync<T> factoryFunc, {
+        String? instanceName,
+        Iterable<Type>? dependsOn,
+        bool? signalsReady,
         DisposingFunc<T>? dispose,
       });
 
@@ -59,6 +68,7 @@ abstract class TTNFlixServiceLocator {
     Object? instance,
     String? instanceName,
   });
+
 }
 
 class TTNFlixSL {
