@@ -1,8 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ttn_flix/data/models/movie.dart';
 import 'package:ttn_flix/data/network/api/api_endpoint.dart';
+import 'package:ttn_flix/logic/home/home_cubit.dart';
 import 'package:ttn_flix/navigation/ttn_flix_navigation.gr.dart';
 import '../../themes/ttn_flix_spacing.dart';
 import '../../themes/ttn_flix_text_style.dart';
@@ -62,7 +64,7 @@ class MovieItem extends StatelessWidget {
                         : TTNFlixTextStyle.defaultTextTheme.titleLarge),
               ),
             ),
-            _buildFavoriteIcon(isGridView),
+            InkWell(onTap: (){BlocProvider.of<HomeCubit>(context).saveFavourite(items);},child: _buildFavoriteIcon(isGridView, items.isFavourite)),
             const SizedBox(width: TTNFlixSpacing.spacing5),
           ],
         ),
@@ -78,11 +80,11 @@ class MovieItem extends StatelessWidget {
     );
   }
 
-  Icon _buildFavoriteIcon(bool isGridView) {
+  Icon _buildFavoriteIcon(bool isGridView, bool? isFavourite) {
     return Icon(
-      Icons.favorite_border,
+      isFavourite != null && isFavourite == true ? Icons.favorite : Icons.favorite_border,
       size: isGridView ? TTNFlixSpacing.spacing20 : TTNFlixSpacing.spacing30,
-      color: Colors.white,
+      color: isFavourite != null && isFavourite == true ? Colors.red : Colors.white,
     );
   }
 }

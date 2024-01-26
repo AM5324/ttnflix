@@ -19,10 +19,9 @@ class TTNFlixBottomBar extends StatefulWidget {
 
 class _TTNFlixBottomBarState extends State<TTNFlixBottomBar> {
   int _selectedIndex = 0;
-
   final List<Widget> _widgetOptions = [
     BlocProvider(
-        create: (context) => HomeCubit(HomeRepository()),
+        create: (context) => HomeCubit(HomeRepository())..fetchMoviesData(1),
         child: HomeScreen()),
     BlocProvider(
         create: (context) => FavouriteCubit(), child: FavouraiteScreen()),
