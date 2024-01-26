@@ -4,23 +4,25 @@ abstract class FavouriteState extends TTNFlixDefaultEquatable {}
 
 class FavoriteLoading extends FavouriteState {}
 
+class FavoriteInitial extends FavouriteState {}
+
 class FavoriteLoaded extends FavouriteState {
-  final List<Results>? gridList;
+  final List<Results>? favouriteList;
 
 
   FavoriteLoaded(
       {
-        this.gridList});
+        this.favouriteList});
 
   FavoriteLoaded copyWith(
       {
-        final List<Results>? gridList}) =>
+        final List<Results>? favouriteList}) =>
       FavoriteLoaded(
-          gridList: gridList ?? this.gridList);
+          favouriteList: favouriteList ?? this.favouriteList);
 
   @override
   List<Object?> get props =>
-      [gridList];
+      [favouriteList];
 }
 
 class FavoriteError extends FavouriteState {

@@ -24,7 +24,7 @@ class _TTNFlixBottomBarState extends State<TTNFlixBottomBar> {
         create: (context) => HomeCubit(HomeRepository())..fetchMoviesData(1),
         child: HomeScreen()),
     BlocProvider(
-        create: (context) => FavouriteCubit(), child: FavouraiteScreen()),
+        create: (context) => FavouriteCubit()..fetchFavouritesData(), child: FavouraiteScreen()),
      AccountScreen()
   ];
 

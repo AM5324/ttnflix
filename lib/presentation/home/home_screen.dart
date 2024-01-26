@@ -35,7 +35,9 @@ class HomeScreen extends StatelessWidget {
                     HeroBanner(state.carouselList!, state.carouselCurrentPage ?? 0),
                   const SizedBox(height: TTNFlixSpacing.spacing10),
                   if (state.gridList != null)
-                    MovieGridViewWidget(gridList: state.gridList!),
+                    MovieGridViewWidget(gridList: state.gridList!, onTapCallback: (items){
+                      BlocProvider.of<HomeCubit>(context).saveFavourite(items);
+                    },),
                   Padding(
                     padding: const EdgeInsets.only(bottom: TTNFlixSpacing.spacing16),
                     child: state.isPageEnd! ? const CircularProgressIndicator() : Container(),

@@ -9,16 +9,33 @@ import '../../utils/ttn_flix_default_equatable.dart';
 part 'favourite_state.dart';
 
 class FavouriteCubit extends Cubit<FavouriteState> {
-  FavouriteCubit() : super(FavoriteLoading());
+  FavouriteCubit() : super(FavoriteInitial());
   SharedPreferencesManager manager = TTNFlixSL.get<SharedPreferencesManager>();
+  List<Results> favouriteList = [];
+  getFavouriteList() async {
+    favouriteList = manager.getList<Results>('favouriteList', Results.fromJson);
+  }
 
 
   Future<void> fetchFavouritesData() async {
-    var gridList = manager.getList<Results>('userList', Results.fromJson);
-
+    getFavouriteList();
     emit(FavoriteLoaded(
-      gridList: gridList,
+      favouriteList: favouriteList,
     ));
+  }
 
+  saveFavourite(Results results) async {
+    if (results.isFavourite != null && results.isFavourite == true) {
+      for (Results favResults in favouriteList) {
+        if (favResults.id == results.id) {
+          results.isFavourite = null;
+          favouriteList.remove(favResults);
+          await manager.removeList('favouriteList');
+          await manager.saveList(
+              'favouriteList', favouriteList.map((fav) => fav.toJson()).toList());
+          fetchFavouritesData();
+        }
+      }
+    }
   }
 }

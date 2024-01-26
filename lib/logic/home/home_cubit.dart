@@ -1,16 +1,13 @@
 import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ttn_flix/data/models/movie.dart';
 import 'package:ttn_flix/data/network/api/api_endpoint.dart';
 import 'package:ttn_flix/data/repositories/home_repositories.dart';
 import 'package:ttn_flix/utils/ttn_flix_default_equatable.dart';
-
 import '../../data/di/ttn_flix_service_locator.dart';
 import '../../data/models/user.dart';
 import '../../data/shared_prefernce/shared_prefernce_manager.dart';
-
 part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {

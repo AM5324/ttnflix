@@ -29,6 +29,9 @@ class HeroBanner extends StatelessWidget {
               itemBuilder: (context, index) {
                 return MovieItem(
                   items: carouselList[index],
+                  onTapCallback: (items){
+                    BlocProvider.of<HomeCubit>(context).saveFavourite(items);
+                  },
                 );
               }),
           Align(
