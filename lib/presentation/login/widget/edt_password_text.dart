@@ -8,6 +8,7 @@ class EdtPasswordField extends StatefulWidget {
         this.hint,
         this.prefixIcon,
         this.textColor,
+        this.validator,
         this.error,
         this.textInputType});
 
@@ -15,12 +16,13 @@ class EdtPasswordField extends StatefulWidget {
   final String? hint;
   final Icon? prefixIcon;
   final Color? textColor;
+  final FormFieldValidator? validator;
   final String? error;
   final TextInputType? textInputType;
 
   @override
   State<EdtPasswordField> createState() => _EdtPasswordFieldState(
-      textEditingController, hint, prefixIcon, textColor, error, textInputType);
+      textEditingController, hint, prefixIcon, textColor, error, textInputType, validator);
 }
 
 class _EdtPasswordFieldState extends State<EdtPasswordField> {
@@ -29,20 +31,22 @@ class _EdtPasswordFieldState extends State<EdtPasswordField> {
   final String? hint;
   final Icon? prefixIcon;
   final Color? textColor;
+  final FormFieldValidator? validator;
   final String? error;
   final TextInputType? textInputType;
 
   _EdtPasswordFieldState(this.textEditingController, this.hint, this.prefixIcon,
-      this.textColor, this.error, this.textInputType);
+      this.textColor, this.error, this.textInputType, this.validator);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: TTNFlixSpacing.spacing16),
-      child: TextField(
+      child: TextFormField(
         obscureText: _isPasswordVisible,
         keyboardType: textInputType,
         controller: textEditingController,
+        validator: validator,
         style: Theme.of(context)
             .textTheme
             .titleMedium

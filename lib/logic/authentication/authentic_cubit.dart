@@ -1,4 +1,3 @@
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ttn_flix/data/models/user.dart';
 
@@ -11,18 +10,34 @@ part 'authentic_state.dart';
 class AuthenticCubit extends Cubit<AuthenticState> {
   AuthenticCubit() : super(AuthenticateInitial());
   SharedPreferencesManager manager = TTNFlixSL.get<SharedPreferencesManager>();
+  List<UserModel> savedUserList = [];
+  getUserList() async {
+    savedUserList = manager.getList<UserModel>('userList', UserModel.fromJson);}
 
-  void login(UserModel userModel) async {
-    List<UserModel> savedUserList = manager.getList<UserModel>('userList', UserModel.fromJson);
+   login(UserModel userModel) async {
     // Iterate over the savedUserList using a for loop
     for (UserModel user in savedUserList) {
-     if(userModel.username == user.username && userModel.password == user.password){
-       return emit(LoginSuccessState());
-     }
+      if (userModel.username == user.username &&
+          userModel.password == user.password) {
+       await manager.saveObject('currentUser', user);
+        return emit(LoginSuccessState(userModel));
+      }
     }
     emit(LoginError("Invalid Credentials"));
   }
 
-
-
+  void saveUser(UserModel userModel) async {
+    // Iterate over the savedUserList using a for loop
+    for (UserModel user in savedUserList) {
+      if (userModel.username == user.username) {
+        return emit(LoginError("Email is already registered"));
+      }
+    }
+    savedUserList.add(userModel);
+    await manager.removeList('userList');
+    await manager.saveList(
+        'userList', savedUserList.map((user) => user.toJson()).toList());
+    getUserList();
+    emit(RegisterSuccessState());
+  }
 }

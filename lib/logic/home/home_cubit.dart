@@ -6,6 +6,10 @@ import 'package:ttn_flix/data/models/movie.dart';
 import 'package:ttn_flix/data/network/api/api_endpoint.dart';
 import 'package:ttn_flix/data/repositories/home_repositories.dart';
 import 'package:ttn_flix/utils/ttn_flix_default_equatable.dart';
+
+import '../../data/di/ttn_flix_service_locator.dart';
+import '../../data/models/user.dart';
+import '../../data/shared_prefernce/shared_prefernce_manager.dart';
 part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
@@ -14,7 +18,12 @@ class HomeCubit extends Cubit<HomeState> {
   final HomeRepository _homeRepository;
   Timer? _timer;
   final PageController pageController = PageController();
-
+  SharedPreferencesManager manager = TTNFlixSL.get<SharedPreferencesManager>();
+  UserModel currentUser = UserModel();
+  getUser() async {
+    currentUser = manager.getObject('currentUser', UserModel.fromJson)!;
+    print('currentUser : $currentUser');
+  }
   Future<void> fetchMoviesData(int pageNo) async {
     var carouselList = await _homeRepository.getMoviesData(pageNo);
     var gridList = await _homeRepository.getMoviesData(++pageNo);
@@ -28,6 +37,7 @@ class HomeCubit extends Cubit<HomeState> {
       totalPages: gridList.totalPages,
     ));
 
+    getUser();
     _setupCarousalAutomaticRotation();
   }
 

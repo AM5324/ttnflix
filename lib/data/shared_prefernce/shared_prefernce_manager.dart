@@ -1,14 +1,5 @@
 import 'dart:convert';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:get_it/get_it.dart';
 
-import 'dart:convert';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:get_it/get_it.dart';
-
-import '../di/ttn_flix_service_locator.dart';
-
-import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferencesManager {
@@ -22,7 +13,8 @@ class SharedPreferencesManager {
   }
 
   static Future<SharedPreferencesManager> getInstance() async {
-    _instance ??= SharedPreferencesManager._(); // Change here: Initialize if null
+    _instance ??=
+        SharedPreferencesManager._(); // Change here: Initialize if null
     await _init(); // Move the initialization inside getInstance method
     return _instance!; // Change here: Add a non-null assertion
   }
@@ -67,5 +59,9 @@ class SharedPreferencesManager {
     final jsonStringList = list.map((item) => json.encode(item)).toList();
     await _preferences?.setStringList(key, jsonStringList);
   }
-}
 
+  // Remove a list from SharedPreferences
+  Future<void> removeList(String key) async {
+    await _preferences?.remove(key);
+  }
+}

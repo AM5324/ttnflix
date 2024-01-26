@@ -7,7 +7,11 @@ class AuthenticateInitial extends AuthenticState {}
 
 class AuthenticateLoading extends AuthenticState {}
 
-class LoginSuccessState extends AuthenticState { }
+class LoginSuccessState extends AuthenticState {
+  final UserModel currentUser;
+  LoginSuccessState(this.currentUser);
+}
+class RegisterSuccessState extends AuthenticState { }
 
 class LoginError extends AuthenticState {
   LoginError(this.message);

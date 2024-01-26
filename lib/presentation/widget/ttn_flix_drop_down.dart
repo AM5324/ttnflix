@@ -10,6 +10,7 @@ class TtnFlixDropdown extends StatelessWidget {
     this.prefixIcon,
     this.dropDownData,
     this.currentValue,
+    required this.onChanged
   }) : super(key: key);
 
   final String? hintText;
@@ -17,6 +18,7 @@ class TtnFlixDropdown extends StatelessWidget {
   final Icon? prefixIcon;
   final String? currentValue;
   final List<DropdownMenuItem<String>>? dropDownData;
+  final ValueChanged<String?>? onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +41,7 @@ class TtnFlixDropdown extends StatelessWidget {
         iconSize: TTNFlixSpacing.spacing24,
         dropdownColor: Colors.white,
         items: dropDownData,
-        onChanged: (value) {},
+        onChanged: onChanged,
       ),
     );
   }

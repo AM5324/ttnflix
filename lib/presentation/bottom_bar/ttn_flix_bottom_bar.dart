@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ttn_flix/logic/favourite/favourite_cubit.dart';
 import 'package:ttn_flix/presentation/favouraite/favouraite_screen.dart';
+import 'package:ttn_flix/presentation/themes/ttn_flix_color.dart';
 
 import '../../data/repositories/home_repositories.dart';
 import '../../logic/home/home_cubit.dart';
@@ -46,8 +47,8 @@ class _TTNFlixBottomBarState extends State<TTNFlixBottomBar> {
       ],
       currentIndex: _selectedIndex,
       onTap: _onItemTapped,
-      selectedItemColor: Colors.indigo,
-      backgroundColor: Colors.white,
+      selectedItemColor: Colors.redAccent,
+      backgroundColor: TTNFlixColor.primaryColor.lightColor,
     );
   }
 

@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ttn_flix/data/models/user.dart';
 import 'package:ttn_flix/logic/authentication/authentic_cubit.dart';
 import 'package:ttn_flix/navigation/ttn_flix_navigation.gr.dart';
@@ -25,8 +26,23 @@ class LogInScreen extends StatelessWidget {
   final cubit = AuthenticCubit();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
+    return BlocProvider(
+  create: (context) => cubit..getUserList(),
+  child: Scaffold(
+      body: BlocConsumer<AuthenticCubit, AuthenticState>(
+  listener: (context, state) {
+    if (state is LoginError) {
+      SnackBar snackBar = SnackBar(
+          content: Text(state.message ?? '')
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    } else if (state is LoginSuccessState) {
+      context.router.pop();
+      context.router.push(TTNFlixBottomBarRoute());
+    }
+  },
+  builder: (context, state) {
+    return Container(
         margin: const EdgeInsets.all(TTNFlixSpacing.spacing20),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -52,6 +68,9 @@ class LogInScreen extends StatelessWidget {
                     textEditingController: _passwordEditingController,
                     prefixIcon: const Icon(Icons.password),
                     hint: TTNFlixConstants.password,
+                    validator: (value) {
+                      return Validator.isValidPassword(context, password: value);
+                    },
                     textInputType: TextInputType.visiblePassword,
                   ),
                   Button(
@@ -91,9 +110,12 @@ class LogInScreen extends StatelessWidget {
             ),
           ],
         ),
-      ),
+      );
+  },
+),
 
-    );
+    ),
+);
   }
 
   void _validateForm() async {
