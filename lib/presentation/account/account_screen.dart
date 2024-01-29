@@ -55,7 +55,7 @@ class AccountScreen extends StatelessWidget {
                       Assets.icons.icUser.path,
                       width: TTNFlixSpacing.spacing100,
                       height: TTNFlixSpacing.spacing100,
-                      color: state.currentUser?.gender == '1' ? Colors.blue : state.currentUser?.gender == '2' ? Colors.pink : Colors.amber,
+                      color: state.currentUser?.gender == TTNFlixConstants.maleColor ? Colors.blue : state.currentUser?.gender == TTNFlixConstants.femaleColor ? Colors.pink : Colors.amber,
                     ),
                     const SizedBox(height: TTNFlixSpacing.spacing24),
                     Form(

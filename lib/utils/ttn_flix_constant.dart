@@ -25,6 +25,7 @@ class TTNFlixConstants{
   static const String update = "Update";
   static const String save = "Save";
   static const String profile = "My Profile";
-
-
+  static const String maleColor = "1";
+  static const String femaleColor = "2";
+  static const String otherColor = "3";
 }
