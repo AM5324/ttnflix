@@ -2,6 +2,7 @@ import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ttn_flix/logic/favourite/favourite_cubit.dart';
+import 'package:ttn_flix/logic/profile/profile_cubit.dart';
 import 'package:ttn_flix/presentation/favouraite/favouraite_screen.dart';
 import 'package:ttn_flix/presentation/themes/ttn_flix_color.dart';
 
@@ -25,7 +26,8 @@ class _TTNFlixBottomBarState extends State<TTNFlixBottomBar> {
         child: HomeScreen()),
     BlocProvider(
         create: (context) => FavouriteCubit()..fetchFavouritesData(), child: FavouraiteScreen()),
-     AccountScreen()
+    BlocProvider(
+        create: (context) => ProfileCubit()..getUser(), child: AccountScreen()),
   ];
 
   void _onItemTapped(int index) {

@@ -18,6 +18,12 @@ class TTNFlixConstants{
   static const String dob = "D.O.B";
   static const String gender = "Gender";
   static const String favorite = "Favorite";
+  static const String somethingWentWrong = "Something went wrong";
+  static const String accCreated = "Account Created";
+  static const String alreadyHaveAcc = "already_have_account";
+  static const String updated = "Updated";
+  static const String update = "Update";
+  static const String save = "Save";
 
 
 }

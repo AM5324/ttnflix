@@ -8,8 +8,10 @@ import '../../utils/ttn_flix_default_equatable.dart';
 part 'authentic_state.dart';
 
 class AuthenticCubit extends Cubit<AuthenticState> {
-  AuthenticCubit() : super(AuthenticateInitial());
-  SharedPreferencesManager manager = TTNFlixSL.get<SharedPreferencesManager>();
+  final SharedPreferencesManager manager;
+  AuthenticCubit({SharedPreferencesManager? sharedPref})
+      : manager = sharedPref ?? TTNFlixSL.get<SharedPreferencesManager>(),super(AuthenticateInitial());
+
   List<UserModel> savedUserList = [];
   getUserList() async {
     savedUserList = manager.getList<UserModel>('userList', UserModel.fromJson);}

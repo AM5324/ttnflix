@@ -4,13 +4,14 @@ import 'package:ttn_flix/presentation/themes/ttn_flix_spacing.dart';
 class EdtPasswordField extends StatefulWidget {
   const EdtPasswordField(
       {super.key,
-        required this.textEditingController,
-        this.hint,
-        this.prefixIcon,
-        this.textColor,
-        this.validator,
-        this.error,
-        this.textInputType});
+      required this.textEditingController,
+      this.hint,
+      this.prefixIcon,
+      this.textColor,
+      this.validator,
+      this.error,
+      this.readOnly = false,
+      this.textInputType});
 
   final TextEditingController textEditingController;
   final String? hint;
@@ -18,11 +19,19 @@ class EdtPasswordField extends StatefulWidget {
   final Color? textColor;
   final FormFieldValidator? validator;
   final String? error;
+  final bool readOnly;
   final TextInputType? textInputType;
 
   @override
   State<EdtPasswordField> createState() => _EdtPasswordFieldState(
-      textEditingController, hint, prefixIcon, textColor, error, textInputType, validator);
+      textEditingController,
+      hint,
+      prefixIcon,
+      textColor,
+      error,
+      textInputType,
+      validator,
+      readOnly);
 }
 
 class _EdtPasswordFieldState extends State<EdtPasswordField> {
@@ -34,9 +43,17 @@ class _EdtPasswordFieldState extends State<EdtPasswordField> {
   final FormFieldValidator? validator;
   final String? error;
   final TextInputType? textInputType;
+  final bool readOnly;
 
-  _EdtPasswordFieldState(this.textEditingController, this.hint, this.prefixIcon,
-      this.textColor, this.error, this.textInputType, this.validator);
+  _EdtPasswordFieldState(
+      this.textEditingController,
+      this.hint,
+      this.prefixIcon,
+      this.textColor,
+      this.error,
+      this.textInputType,
+      this.validator,
+      this.readOnly);
 
   @override
   Widget build(BuildContext context) {
@@ -47,6 +64,7 @@ class _EdtPasswordFieldState extends State<EdtPasswordField> {
         keyboardType: textInputType,
         controller: textEditingController,
         validator: validator,
+        readOnly: readOnly,
         style: Theme.of(context)
             .textTheme
             .titleMedium

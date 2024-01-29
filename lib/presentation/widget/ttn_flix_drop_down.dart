@@ -10,6 +10,7 @@ class TtnFlixDropdown extends StatelessWidget {
     this.prefixIcon,
     this.dropDownData,
     this.currentValue,
+    this.readOnly = false,
     required this.onChanged
   }) : super(key: key);
 
@@ -17,6 +18,7 @@ class TtnFlixDropdown extends StatelessWidget {
   final Color? textColor;
   final Icon? prefixIcon;
   final String? currentValue;
+  final bool readOnly;
   final List<DropdownMenuItem<String>>? dropDownData;
   final ValueChanged<String?>? onChanged;
 
@@ -41,7 +43,7 @@ class TtnFlixDropdown extends StatelessWidget {
         iconSize: TTNFlixSpacing.spacing24,
         dropdownColor: Colors.white,
         items: dropDownData,
-        onChanged: onChanged,
+        onChanged: readOnly ? null : onChanged,
       ),
     );
   }
