@@ -14,6 +14,7 @@ import '../../data/models/gender.dart';
 import '../../data/models/user.dart';
 import '../../generated/flutter_gen/assets.gen.dart';
 import '../../utils/validator.dart';
+import '../themes/ttn_flix_text_style.dart';
 
 @RoutePage()
 class AccountScreen extends StatelessWidget {
@@ -30,6 +31,13 @@ class AccountScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+            automaticallyImplyLeading: false,
+            title: Text(
+              TTNFlixConstants.profile,
+              style: TTNFlixTextStyle.defaultTextTheme.headlineMedium,
+            ),
+          ),
       body: SingleChildScrollView(
         child: BlocConsumer<ProfileCubit, ProfileState>(
           listener: (context, state) {

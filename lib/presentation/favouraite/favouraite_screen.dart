@@ -16,6 +16,7 @@ class FavouraiteScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Text(
           TTNFlixConstants.favorite,
           style: TTNFlixTextStyle.defaultTextTheme.headlineMedium,
