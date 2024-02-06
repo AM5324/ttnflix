@@ -5,9 +5,10 @@ import '../../../data/models/movie.dart';
 import 'movie_item_widget.dart';
 
 class MovieGridViewWidget extends StatelessWidget {
-  const MovieGridViewWidget({Key? key, required this.gridList}) : super(key: key);
+  const MovieGridViewWidget({Key? key, required this.gridList, required this.onTapCallback}) : super(key: key);
 
   final List<Results> gridList;
+  final Function(Results) onTapCallback;
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +26,9 @@ class MovieGridViewWidget extends StatelessWidget {
         return MovieItem(
           items: gridList[index],
           isGridView: true,
+          onTapCallback: (value) {
+            onTapCallback(value);
+          },
         );
       },
     );

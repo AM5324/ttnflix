@@ -5,6 +5,12 @@ import 'package:ttn_flix/navigation/ttn_flix_navigation.gr.dart';
 class TtnFlixAppRouter extends $TtnFlixAppRouter {
   @override
   List<AutoRoute> get routes => [
-    AutoRoute(page: HomeScreenRoute.page, initial: true),
-  ];
+        AutoRoute(page: TTNFlixBottomBarRoute.page, initial: false),
+        AutoRoute(page: LogInScreenRoute.page,initial: true),
+        AutoRoute(page: RegisterScreenRoute.page),
+        AutoRoute(page: HomeScreenRoute.page),
+        AutoRoute(page: DetailScreenRoute.page),
+        AutoRoute(page: FavouraiteScreenRoute.page),
+        AutoRoute(page: AccountScreenRoute.page),
+      ];
 }

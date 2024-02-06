@@ -39,6 +39,13 @@ lib/
 flutter pub get
 flutter pub run build_runner build
 
+# ScreenShot 
+![img.png](img.png)
+![img_1.png](img_1.png)
+![img_2.png](img_2.png)
+![img_3.png](img_3.png)
+![img_4.png](img_4.png)
+
 
 
 
