@@ -21,12 +21,12 @@ class HomeCubit extends Cubit<HomeState> {
 
   List<Results> favouriteList = [];
 
-  getFavouriteList() async {
+  getFavouriteList() {
     favouriteList = manager.getList<Results>('favouriteList', Results.fromJson);
     print('FavList: $favouriteList');
   }
 
-  getUser() async {
+  getUser() {
     currentUser = manager.getObject('currentUser', UserModel.fromJson)!;
     print('currentUser : $currentUser');
   }
@@ -146,10 +146,10 @@ class HomeCubit extends Cubit<HomeState> {
   saveFavourite(Results results) async {
     var homeLoadedState = state as HomeLoaded;
     var isFav = true;
-    if (results.isFavourite != null && results.isFavourite == true) {
+    if (results.isFavourite) {
       for (Results favResults in favouriteList) {
         if (favResults.id == results.id) {
-          results.isFavourite = null;
+          results.isFavourite = false;
           favouriteList.remove(favResults);
         }
       }

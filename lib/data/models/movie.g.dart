@@ -26,7 +26,7 @@ Results _$ResultsFromJson(Map<String, dynamic> json) => Results(
       json['original_language'] as String?,
       json['release_date'] as String?,
       json['vote_count'] as int?,
-      json['isFavourite'] as bool?,
+      isFavourite: json['isFavourite'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$ResultsToJson(Results instance) => <String, dynamic>{

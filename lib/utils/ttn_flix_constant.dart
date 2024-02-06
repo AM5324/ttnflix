@@ -20,7 +20,7 @@ class TTNFlixConstants{
   static const String favorite = "Favorite";
   static const String somethingWentWrong = "Something went wrong";
   static const String accCreated = "Account Created";
-  static const String alreadyHaveAcc = "already_have_account";
+  static const String alreadyHaveAcc = "Already have an account";
   static const String updated = "Updated";
   static const String update = "Update";
   static const String save = "Save";
@@ -28,4 +28,6 @@ class TTNFlixConstants{
   static const String maleColor = "1";
   static const String femaleColor = "2";
   static const String otherColor = "3";
+  static const String logout = "Logout";
+
 }

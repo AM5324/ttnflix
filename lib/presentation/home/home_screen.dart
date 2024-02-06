@@ -33,7 +33,7 @@ class HomeScreen extends StatelessWidget {
               child: Column(
                 children: [
                   if (state.carouselList != null)
-                    HeroBanner(state.carouselList!, state.carouselCurrentPage ?? 0),
+                    HeroBanner(state.carouselList ?? [], state.carouselCurrentPage ?? 0),
                   const SizedBox(height: TTNFlixSpacing.spacing10),
                   if (state.gridList != null)
                     MovieGridViewWidget(gridList: state.gridList!, onTapCallback: (items){

@@ -11,31 +11,36 @@ part 'favourite_state.dart';
 class FavouriteCubit extends Cubit<FavouriteState> {
   FavouriteCubit() : super(FavoriteInitial());
   SharedPreferencesManager manager = TTNFlixSL.get<SharedPreferencesManager>();
-  List<Results> favouriteList = [];
-  getFavouriteList() async {
-    favouriteList = manager.getList<Results>('favouriteList', Results.fromJson);
-  }
-
 
   Future<void> fetchFavouritesData() async {
-    getFavouriteList();
+    List<Results> favouriteList = manager.getList<Results>('favouriteList', Results.fromJson);
     emit(FavoriteLoaded(
       favouriteList: favouriteList,
     ));
   }
 
   saveFavourite(Results results) async {
-    if (results.isFavourite != null && results.isFavourite == true) {
-      for (Results favResults in favouriteList) {
+    var favLoadedState = state as FavoriteLoaded;
+    List<Results> favouriteList = [];
+    if (results.isFavourite) {
+
+      favouriteList = favLoadedState.favouriteList
+          ?.where((favResults) {
         if (favResults.id == results.id) {
-          results.isFavourite = null;
-          favouriteList.remove(favResults);
-          await manager.removeList('favouriteList');
-          await manager.saveList(
-              'favouriteList', favouriteList.map((fav) => fav.toJson()).toList());
-          fetchFavouritesData();
+          results.isFavourite = false;
+          return false;
         }
-      }
+        return true; // Include this element in the new list
+      })
+          .toList() ?? [];
+
+      await manager.removeList('favouriteList');
+      await manager.saveList(
+        'favouriteList',
+        favouriteList.map((fav) => fav.toJson()).toList(),
+      );
+      fetchFavouritesData();
+
     }
   }
 }

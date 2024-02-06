@@ -52,7 +52,7 @@ class Button extends StatelessWidget {
               bottom: TTNFlixSpacing.spacing10,
             ),
             child: Text(buttonText,
-                style: Theme.of(context).textTheme.titleMedium),
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Colors.white)),
           ),
         ),
       ),

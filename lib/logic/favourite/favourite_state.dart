@@ -7,7 +7,7 @@ class FavoriteLoading extends FavouriteState {}
 class FavoriteInitial extends FavouriteState {}
 
 class FavoriteLoaded extends FavouriteState {
-  final List<Results>? favouriteList;
+  late final List<Results>? favouriteList;
 
 
   FavoriteLoaded(

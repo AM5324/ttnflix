@@ -50,7 +50,7 @@ class RegisterScreen extends StatelessWidget {
                 SnackBar snackBar =
                     const SnackBar(content: Text(TTNFlixConstants.accCreated));
                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                context.router.pop();
+                context.router.push(LogInScreenRoute());
               }
             },
             child: Container(
@@ -138,7 +138,7 @@ class RegisterScreen extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(TTNFlixConstants.alreadyHaveAcc),
+                      Text(TTNFlixConstants.alreadyHaveAcc, style: TextStyle(color: Colors.white),),
                       TextButton(
                         onPressed: () {
                           context.router.push(LogInScreenRoute());

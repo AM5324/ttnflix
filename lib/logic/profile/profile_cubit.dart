@@ -25,10 +25,30 @@ class ProfileCubit extends Cubit<ProfileState> {
     emit(ProfileSuccessState().copyWith(currentUser: user, isUpdate: false));
   }
 
+  // saveUser(UserModel user) async {
+  //   user.password = currentUser.password;
+  //   await manager.removeList('currentUser');
+  //   await manager.saveObject('currentUser', user);
+  //   currentUser = manager.getObject('currentUser', UserModel.fromJson)!;
+  //   emit(ProfileSuccessState().copyWith(isUpdate: true));
+  // }
+
   saveUser(UserModel user) async {
-    user.password = currentUser.password;
-    await manager.removeList('currentUser');
-    await manager.saveObject('currentUser', user);
-    getUser();
+    try {
+      user.password = currentUser.password;
+
+      // Assuming removeList is not the correct method to remove an object,
+      // you may need to use a different method or check the documentation.
+      await manager.removeList('currentUser');
+
+      await manager.saveObject('currentUser', user);
+      currentUser = manager.getObject('currentUser', UserModel.fromJson)!;
+
+      emit(ProfileSuccessState(currentUser: currentUser, isUpdate: true));
+    } catch (error) {
+      // Handle errors appropriately (e.g., print or log the error)
+      print('Error in saveUser: $error');
+    }
   }
+
 }

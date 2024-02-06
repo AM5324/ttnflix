@@ -38,79 +38,82 @@ class LogInScreen extends StatelessWidget {
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     } else if (state is LoginSuccessState) {
       context.router.pop();
-      context.router.push(TTNFlixBottomBarRoute());
+      context.router.push(const TTNFlixBottomBarRoute());
     }
   },
   builder: (context, state) {
-    return Container(
-        margin: const EdgeInsets.all(TTNFlixSpacing.spacing20),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            // Welcome Section
-            const TTNFlixHeader(),
-            // Login Section
-            Form(
-              key: _formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
+    return WillPopScope(
+      onWillPop: () async{return false;},
+      child: Container(
+          margin: const EdgeInsets.all(TTNFlixSpacing.spacing20),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              // Welcome Section
+              const TTNFlixHeader(),
+              // Login Section
+              Form(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    EdtTextField(
+                      textEditingController: _emailEditingController,
+                      prefixIcon: const Icon(Icons.email),
+                      label: TTNFlixConstants.username,
+                      validator: (value) {
+                        return Validator.isEmailValid(context, email: value);
+                      },
+                      textInputType: TextInputType.emailAddress,
+                    ),
+                    EdtPasswordField(
+                      textEditingController: _passwordEditingController,
+                      prefixIcon: const Icon(Icons.password),
+                      hint: TTNFlixConstants.password,
+                      validator: (value) {
+                        return Validator.isValidPassword(context, password: value);
+                      },
+                      textInputType: TextInputType.visiblePassword,
+                    ),
+                    Button(
+                      onClick: () {
+                        _validateForm(context);
+                      },
+                      buttonText: TTNFlixConstants.logIn,
+                    ),
+                  ],
+                ),
+              ),
+
+              // Sign Up Section
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  EdtTextField(
-                    textEditingController: _emailEditingController,
-                    prefixIcon: const Icon(Icons.email),
-                    label: TTNFlixConstants.username,
-                    validator: (value) {
-                      return Validator.isEmailValid(context, email: value);
-                    },
-                    textInputType: TextInputType.emailAddress,
+                  Text(
+                    TTNFlixConstants.dontHaveAcc,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodySmall
+                        ?.copyWith(color: Colors.white),
                   ),
-                  EdtPasswordField(
-                    textEditingController: _passwordEditingController,
-                    prefixIcon: const Icon(Icons.password),
-                    hint: TTNFlixConstants.password,
-                    validator: (value) {
-                      return Validator.isValidPassword(context, password: value);
+                  TextButton(
+                    onPressed: () {
+                      context.router.push(RegisterScreenRoute());
                     },
-                    textInputType: TextInputType.visiblePassword,
-                  ),
-                  Button(
-                    onClick: () {
-                      _validateForm();
-                    },
-                    buttonText: TTNFlixConstants.logIn,
+                    child: Text(
+                      TTNFlixConstants.signUp,
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium
+                          ?.copyWith(color: Colors.redAccent),
+                    ),
                   ),
                 ],
               ),
-            ),
-
-            // Sign Up Section
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  TTNFlixConstants.dontHaveAcc,
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodySmall
-                      ?.copyWith(color: Colors.white),
-                ),
-                TextButton(
-                  onPressed: () {
-                    context.router.push(RegisterScreenRoute());
-                  },
-                  child: Text(
-                    TTNFlixConstants.signUp,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyMedium
-                        ?.copyWith(color: Colors.redAccent),
-                  ),
-                ),
-              ],
-            ),
-          ],
+            ],
+          ),
         ),
-      );
+    );
   },
 ),
 
@@ -118,7 +121,7 @@ class LogInScreen extends StatelessWidget {
 );
   }
 
-  void _validateForm() async {
+  void _validateForm(BuildContext context) async {
     if (_formKey.currentState?.validate() == true) {
       SystemChannels.textInput.invokeMethod("TextInput.hide");
       UserModel user = UserModel(username: _emailEditingController.text, password: _passwordEditingController.text);

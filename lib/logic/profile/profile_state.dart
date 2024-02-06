@@ -19,7 +19,7 @@ class ProfileSuccessState extends ProfileState {
       );
 
   @override
-  List<Object?> get props => [currentUser, isUpdate];
+  List<Object?> get props => [isUpdate];
 }
 
 class ProfileError extends ProfileState {

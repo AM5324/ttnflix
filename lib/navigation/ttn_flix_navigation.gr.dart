@@ -44,11 +44,9 @@ abstract class $TtnFlixAppRouter extends _i8.RootStackRouter {
       );
     },
     FavouraiteScreenRoute.name: (routeData) {
-      final args = routeData.argsAs<FavouraiteScreenRouteArgs>(
-          orElse: () => const FavouraiteScreenRouteArgs());
       return _i8.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i3.FavouraiteScreen(key: args.key),
+        child: const _i3.FavouraiteScreen(),
       );
     },
     HomeScreenRoute.name: (routeData) {
@@ -153,32 +151,16 @@ class DetailScreenRouteArgs {
 
 /// generated route for
 /// [_i3.FavouraiteScreen]
-class FavouraiteScreenRoute
-    extends _i8.PageRouteInfo<FavouraiteScreenRouteArgs> {
-  FavouraiteScreenRoute({
-    _i9.Key? key,
-    List<_i8.PageRouteInfo>? children,
-  }) : super(
+class FavouraiteScreenRoute extends _i8.PageRouteInfo<void> {
+  const FavouraiteScreenRoute({List<_i8.PageRouteInfo>? children})
+      : super(
           FavouraiteScreenRoute.name,
-          args: FavouraiteScreenRouteArgs(key: key),
           initialChildren: children,
         );
 
   static const String name = 'FavouraiteScreenRoute';
 
-  static const _i8.PageInfo<FavouraiteScreenRouteArgs> page =
-      _i8.PageInfo<FavouraiteScreenRouteArgs>(name);
-}
-
-class FavouraiteScreenRouteArgs {
-  const FavouraiteScreenRouteArgs({this.key});
-
-  final _i9.Key? key;
-
-  @override
-  String toString() {
-    return 'FavouraiteScreenRouteArgs{key: $key}';
-  }
+  static const _i8.PageInfo<void> page = _i8.PageInfo<void>(name);
 }
 
 /// generated route for

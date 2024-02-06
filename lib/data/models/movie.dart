@@ -33,9 +33,9 @@ class Results{
   final String? releaseDate;
   @JsonKey(name: "vote_count")
   final int? voteCount;
-  bool? isFavourite;
+  bool isFavourite;
 
-  Results(this.id, this.title, this.overview, this.posterPath, this.adult, this.backdropPath, this.originalLanguage, this.releaseDate, this.voteCount, this.isFavourite);
+  Results(this.id, this.title, this.overview, this.posterPath, this.adult, this.backdropPath, this.originalLanguage, this.releaseDate, this.voteCount, {this.isFavourite = false});
 
   factory Results.fromJson(Map<String, dynamic> map) =>
       _$ResultsFromJson(map);
